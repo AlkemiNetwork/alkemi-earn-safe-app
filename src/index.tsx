@@ -1,27 +1,45 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider } from 'styled-components';
-import { theme, Loader, Title } from '@gnosis.pm/safe-react-components';
+
+
+// theme
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+import "react-perfect-scrollbar/dist/css/styles.css";
+import "assets/scss/style.scss";
+import theme from "themes/theme";
+
+// SafeProvider
 import SafeProvider from '@gnosis.pm/safe-apps-react-sdk';
 
-import GlobalStyle from './GlobalStyle';
-import App from './App';
+// hot reload
+import { hot } from "react-hot-loader/root";
+
+// import App from './App';
+
+export class App extends Component {
+  render() {
+      return (
+        <MuiThemeProvider theme={theme}>
+            <CssBaseline />
+            <SafeProvider
+              loader={
+                <>
+                  Waiting for Safe...
+                </>
+              }
+            >
+              Connected. Show components here
+            </SafeProvider>
+        </MuiThemeProvider>
+      );
+  }
+}
+
+const AppWithHotReload = hot(App);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <SafeProvider
-        loader={
-          <>
-            <Title size="md">Waiting for Safe...</Title>
-            <Loader size="md" />
-          </>
-        }
-      >
-        <App />
-      </SafeProvider>
-    </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root'),
+  <AppWithHotReload />,
+  document.getElementById("root") || document.createElement("div")
 );

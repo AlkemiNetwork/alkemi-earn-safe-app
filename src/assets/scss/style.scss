@@ -1,0 +1,134 @@
+// @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
+@import "./util/breakpoint";
+
+// BNC onboard modal styling
+.bn-onboard-dark-mode {
+    background-color: #0d0e10 !important;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+    padding: 0px !important;
+}
+.bn-onboard-modal-content-header {
+    padding: 16px 16px 16px 16px !important;
+    border-bottom: 1px solid #000 !important;
+}
+.bn-onboard-modal-content-header-heading {
+    font-size: 18px !important;
+    font-weight: 500;
+    color: #fff !important;
+}
+.bn-onboard-dark-mode-background {
+    background-color: #0d0e10 !important;
+}
+.bn-onboard-dark-mode-background-hover:hover {
+    background-color: #151617 !important;
+    box-shadow: none !important;
+}
+.bn-onboard-select-description {
+    padding-left: 16px !important;
+    color: #c0c0c0 !important;
+}
+.bn-onboard-select-info-container {
+    padding: 0px 0px 16px 16px !important;
+}
+.bn-onboard-modal-select-wallets {
+    padding-left: 12px !important;
+}
+
+.bn-onboard-modal-content.bn-onboard-dark-mode {
+   border: solid 1px #131313;
+}
+
+.bn-onboard-modal-selected-wallet {
+  padding: 0px 16px 16px 16px !important;
+}
+
+// BNC wallet buttons
+.bn-onboard-icon-button {
+    width: 17.2em !important;
+    border-radius: 4px !important;
+}
+.bn-onboard-icon-button span {
+    font-weight: 500 !important;
+}
+
+
+// BNC wallet info/desctiption
+.bn-onboard-select-wallet-info {
+    color: #21deab !important;
+    font-size: 14px !important;
+}
+.bn-onboard-select-wallet-definition {
+    padding: 0px 16px 16px 16px !important;
+    margin-top: 0px !important;
+    color: #c0c0c0 !important;
+}
+.bn-onboard-prepare-description {
+    padding: 16px !important;
+    color: #c0c0c0 !important;
+}
+
+// BNC close modal icon
+.bn-onboard-modal-content-close {
+    top: 1.1em !important;
+    border-radius: 40px !important;
+}
+.bn-onboard-dark-mode-close-background:hover {
+    background: #202123 !important;
+}
+
+// BNC Button
+.bn-onboard-dark-mode-link {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+.bn-onboard-button {
+    border-radius: 4px !important;
+}
+.bn-onboard-prepare-button-container {
+    margin: 16px !important;
+}
+.bn-onboard-dark-mode-background-hover:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bn-onboard-clickable {
+    color: #ffffff !important;
+}
+
+.bn-onboard-selected-wallet {
+  background: #313234 !important;
+}
+
+// BNC Error Message
+.bn-onboard-prepare-error {
+    margin: 16px !important;
+}
+
+//BNC onboard Modal // background overlay
+.bn-onboard-modal {
+    z-index: 1200 !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    align-items: flex-start !important;
+    position: absolute !important;
+    padding-top: 20vh !important;
+}
+
+// Toastify
+.Toastify__toast--default {
+    background: transparent !important;
+    margin-bottom: 8px !important;
+}
+.fMyqQI {
+    &:nth-child(1) {
+        width: 320px;
+        margin-top: 0px;
+    }
+}
+.Toastify__toast-container {
+    width: 340px !important;
+    padding-top: 0px !important;
+}
+
+.Toastify__toast {
+  padding: 0px !important;
+}
