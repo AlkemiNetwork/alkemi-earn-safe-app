@@ -5,6 +5,7 @@
 Install dependencies and start a local dev server.
 
 ```
+npm i -g yarn
 yarn install
 cp .env.sample .env
 yarn start
