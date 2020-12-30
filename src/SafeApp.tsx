@@ -1,20 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
-import { Button, Loader, Title } from '@gnosis.pm/safe-react-components';
+
 import { useSafeAppsSDK } from '@gnosis.pm/safe-apps-react-sdk';
 
-const Container = styled.form`
-  margin-bottom: 2rem;
-  width: 100%;
-  max-width: 480px;
-
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
-`;
-
-const App: React.FC = () => {
+const SafeApp: React.FC = () => {
   const { sdk, safe } = useSafeAppsSDK();
   const [submitting, setSubmitting] = useState(false);
 
@@ -40,29 +28,28 @@ const App: React.FC = () => {
   }, [safe, sdk]);
 
   return (
-    <Container>
-      <Title size="md">{safe.safeAddress}</Title>
+    <>
+      <h2>{safe.safeAddress}</h2>
+      
       {submitting ? (
         <>
-          <Loader size="md" />
+          Loading...
           <br />
-          <Button
-            size="lg"
-            color="secondary"
+          <button
             onClick={() => {
               setSubmitting(false);
             }}
           >
             Cancel
-          </Button>
+          </button>
         </>
       ) : (
-        <Button size="lg" color="primary" onClick={submitTx}>
+        <button onClick={submitTx}>
           Submit
-        </Button>
+        </button>
       )}
-    </Container>
+    </>
   );
 };
 
-export default App;
+export default SafeApp;

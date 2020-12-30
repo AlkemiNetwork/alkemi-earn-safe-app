@@ -16,7 +16,7 @@ import SafeProvider from '@gnosis.pm/safe-apps-react-sdk';
 // hot reload
 import { hot } from "react-hot-loader/root";
 
-// import App from './App';
+import SafeApp from './SafeApp';
 
 export class App extends Component {
   render() {
@@ -30,7 +30,7 @@ export class App extends Component {
                 </>
               }
             >
-              Connected. Show components here
+              <SafeApp />
             </SafeProvider>
         </MuiThemeProvider>
       );
