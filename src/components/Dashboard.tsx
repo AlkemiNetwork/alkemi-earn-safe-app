@@ -6,7 +6,7 @@ import {
   GenericModal,
   Select,
   ModalFooterConfirmation,
-  ButtonLink,
+  ButtonLink
 } from "@gnosis.pm/safe-react-components";
 import React, { useState, useCallback } from "react";
 import Box from "@material-ui/core/Box";
@@ -46,7 +46,7 @@ const StyledExamples = styled.div`
 
 const ModalBody = ({
   txs,
-  deleteTx,
+  deleteTx
 }: {
   txs: Array<ProposedTransaction>;
   deleteTx: (index: number) => void;
@@ -196,7 +196,7 @@ const Dashboard = () => {
 
       transactions.push({
         description,
-        raw: { to: cleanTo, value: cleanValue, data },
+        raw: { to: cleanTo, value: cleanValue, data }
       });
 
       setInputCache([]);
@@ -213,7 +213,7 @@ const Dashboard = () => {
     value,
     contract,
     selectedMethodIndex,
-    inputCache,
+    inputCache
   ]);
 
   const deleteTransaction = useCallback(
@@ -231,7 +231,7 @@ const Dashboard = () => {
     }
 
     try {
-      safe.sendTransactions(transactions.map((d) => d.raw));
+      safe.sendTransactions(transactions.map(d => d.raw));
     } catch (e) {
       console.error(e);
     }
@@ -289,6 +289,7 @@ const Dashboard = () => {
         value={addressOrAbi}
         label="Enter Contract Address or ABI"
         onChange={handleAddressOrABI}
+        onLoad={handleAddressOrABI}
       />
       {loadAbiError && (
         <Text color="error" size="lg">
@@ -312,7 +313,7 @@ const Dashboard = () => {
                 style={{ marginTop: 10 }}
                 value={toAddress}
                 label="To Address"
-                onChange={(e) => setToAddress(e.target.value)}
+                onChange={e => setToAddress(e.target.value)}
               />
               <br />
             </>
@@ -325,7 +326,7 @@ const Dashboard = () => {
                 style={{ marginTop: 10, marginBottom: 10 }}
                 value={value}
                 label="ETH"
-                onChange={(e) => setValue(e.target.value)}
+                onChange={e => setValue(e.target.value)}
               />
 
               <br />
@@ -340,7 +341,7 @@ const Dashboard = () => {
                   <StyledSelect
                     items={contract.methods.map((method, index) => ({
                       id: index.toString(),
-                      label: method.name,
+                      label: method.name
                     }))}
                     activeItemId={selectedMethodIndex.toString()}
                     onItemClick={(id: string) => {
@@ -351,7 +352,7 @@ const Dashboard = () => {
                   <StyledExamples>
                     <ButtonLink
                       color="primary"
-                      onClick={() => setShowExamples((prev) => !prev)}
+                      onClick={() => setShowExamples(prev => !prev)}
                     >
                       {showExamples ? "Hide Examples" : "Show Examples"}
                     </ButtonLink>
@@ -407,7 +408,7 @@ const Dashboard = () => {
                       style={{ marginTop: 10 }}
                       value={inputCache[index] || ""}
                       label={`${input.name || ""}(${getInputInterface(input)})`}
-                      onChange={(e) => {
+                      onChange={e => {
                         setAddTxError(undefined);
                         handleInput(index, e.target.value);
                       }}

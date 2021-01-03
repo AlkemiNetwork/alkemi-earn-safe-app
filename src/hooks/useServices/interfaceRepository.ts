@@ -2,6 +2,8 @@ import axios from "axios";
 import memoize from "lodash/memoize";
 import { LowercaseNetworks } from "@gnosis.pm/safe-apps-sdk";
 
+import moneyMarket from "../../abi/moneymarket.json";
+
 import { Safe } from "../../providers/SafeProvider/safeConnector";
 interface ContractMethod {
   inputs: any[];
@@ -33,7 +35,7 @@ const abiUrlGetterByNetwork: {
     `https://explorer.energyweb.org/api?module=contract&action=getabi&address=${address}`,
   volta: (address: string) =>
     `https://volta-explorer.energyweb.org/api?module=contract&action=getabi&address=${address}`,
-  unknown: null,
+  unknown: null
 };
 
 class InterfaceRepository {
@@ -67,7 +69,7 @@ class InterfaceRepository {
       ? await this._loadAbiFromBlockExplorer(addressOrAbi)
       : addressOrAbi;
 
-    const abi = JSON.parse(abiString);
+    const abi = moneyMarket;
 
     const methods = abi
       .filter((e: any) => {
@@ -85,7 +87,7 @@ class InterfaceRepository {
         return {
           inputs: m.inputs || [],
           name: m.name || (m.type === "fallback" ? "fallback" : "receive"),
-          payable: this._isMethodPayable(m),
+          payable: this._isMethodPayable(m)
         };
       });
 
