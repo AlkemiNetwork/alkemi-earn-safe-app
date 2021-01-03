@@ -39,15 +39,7 @@ export const getTokenList = (network: Networks): Array<TokenItem> => {
       iconUrl: daiIcon,
       decimals: 18,
       tokenAddr: tokensByNetwork.DAI,
-      cTokenAddr: tokensByNetwork.cDAI,
-    },
-    {
-      id: "BAT",
-      label: "BAT",
-      iconUrl: batIcon,
-      decimals: 18,
-      tokenAddr: tokensByNetwork.BAT,
-      cTokenAddr: tokensByNetwork.cBAT,
+      cTokenAddr: tokensByNetwork.cDAI
     },
     {
       id: "ETH",
@@ -55,15 +47,7 @@ export const getTokenList = (network: Networks): Array<TokenItem> => {
       iconUrl: ethIcon,
       decimals: 18,
       tokenAddr: tokensByNetwork.ETH,
-      cTokenAddr: tokensByNetwork.cETH,
-    },
-    {
-      id: "REP",
-      label: "REP",
-      iconUrl: repIcon,
-      decimals: 18,
-      tokenAddr: tokensByNetwork.REP,
-      cTokenAddr: tokensByNetwork.cREP,
+      cTokenAddr: tokensByNetwork.cETH
     },
     {
       id: "USDC",
@@ -71,15 +55,7 @@ export const getTokenList = (network: Networks): Array<TokenItem> => {
       iconUrl: usdcIcon,
       decimals: 6,
       tokenAddr: tokensByNetwork.USDC,
-      cTokenAddr: tokensByNetwork.cUSDC,
-    },
-    {
-      id: "USDT",
-      label: "USDT",
-      iconUrl: usdtIcon,
-      decimals: 6,
-      tokenAddr: tokensByNetwork.USDT,
-      cTokenAddr: tokensByNetwork.cUSDT,
+      cTokenAddr: tokensByNetwork.cUSDC
     },
     {
       id: "WBTC",
@@ -87,15 +63,7 @@ export const getTokenList = (network: Networks): Array<TokenItem> => {
       iconUrl: wbtcIcon,
       decimals: 8,
       tokenAddr: tokensByNetwork.WBTC,
-      cTokenAddr: tokensByNetwork.cWBTC,
-    },
-    {
-      id: "ZRX",
-      label: "ZRX",
-      iconUrl: zrxIcon,
-      decimals: 18,
-      tokenAddr: tokensByNetwork.ZRX,
-      cTokenAddr: tokensByNetwork.cZRX,
-    },
+      cTokenAddr: tokensByNetwork.cWBTC
+    }
   ];
 };
