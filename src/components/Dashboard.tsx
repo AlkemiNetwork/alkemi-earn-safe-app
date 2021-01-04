@@ -106,7 +106,7 @@ const Dashboard = () => {
   
       const cleanInput = MoneyMarket_ABI.toString();
   
-      if (!cleanInput.length || !services.web3 || !services.interfaceRepo) {
+      if (!cleanInput.length || !services.web3 || !services.interfaceRepo || !safe.info) {
         return;
       }
       
@@ -114,7 +114,12 @@ const Dashboard = () => {
         const contract = await services.interfaceRepo.loadAbi(cleanInput);
         setContract(contract);
 
-        setToAddress("0x094Aa82872c43031810470317d4D8e3CA9214087")
+        let moneyMarketAddress = address["main"]["address_MoneyMarket"]
+        if(safe.info.network === 'rinkeby') {
+          moneyMarketAddress = address["rinkeby"]["address_MoneyMarket"]
+        }
+
+        setToAddress(moneyMarketAddress)
       } catch (e) {
         setLoadAbiError(true);
         console.error(e);
@@ -123,7 +128,7 @@ const Dashboard = () => {
     };
 
     setABIAndAddress()
-  }, [services.web3, services.interfaceRepo]);
+  }, [services.web3, services.interfaceRepo, safe.info]);
 
   // const contractAddress = address[network][`address_MoneyMarket`];
 
