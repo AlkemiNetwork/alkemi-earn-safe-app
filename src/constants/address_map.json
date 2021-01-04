@@ -1,0 +1,30 @@
+{
+    "main": {
+        "address_MoneyMarket": "0x3fda67f7583380e67ef93072294a7fac882fd7e7",
+        "address_USDC": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "address_WBTC": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+        "address_WETH": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+        "address_DAI": "0x6b175474e89094c44da98b954eedeac495271d0f"
+    },
+    "rinkeby": {
+        "address_MoneyMarket": "0x094Aa82872c43031810470317d4D8e3CA9214087",
+        "address_USDC": "0x4dbcdf9b62e891a7cec5a2568c3f4faf9e8abe2b",
+        "address_WBTC": "0x577d296678535e4903d59a4c929b718e1d575e0a",
+        "address_WETH": "0x9e3865F0A681F2356BcF5Cf6b978F0a773716886",
+        "address_DAI": "0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea"
+    },
+    "ropsten": {
+        "address_MoneyMarket": "0x877fc552EE05123A9532Da4511aaA5c6F212ECc0",
+        "address_USDC": "0x0d9c8723b343a8368bebe0b5e89273ff8d712e3c",
+        "address_WBTC": "0xbde8bb00a7ef67007a96945b3a3621177b615c44",
+        "address_WETH": "0x72E79E602F345aACd9C683106782c08eAf92f0D7",
+        "address_DAI": "0xe8ef14a5cbaada1542d0341ec4a76b611ba209af"
+    },
+    "kovan": {
+        "address_MoneyMarket": "0x87F8D2fDeFD6Ebd0D4d03719C1DE10f4aDE2C7f5",
+        "address_USDC": "0xb7a4f3e9097c08da09517b5ab877f7a917224ede",
+        "address_WBTC": "0xd3a691c852cdb01e281545a27064741f0b7f6825",
+        "address_WETH": "0x22f0596d9Ac79b85BdA6723E3192BA258346C3d5",
+        "address_DAI": "0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa"
+    }
+}

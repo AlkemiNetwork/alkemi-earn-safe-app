@@ -1,14 +1,14 @@
 {
-  "short_name": "Alkemi Earn Safe App",
-  "name": "Alkemi Earn Safe App",
+  "short_name": "Alkemi Earn",
+  "name": "Alkemi Earn",
   "description": "Safe App for Alkemi Earn",
   "iconPath": "favicon.ico",
   "icons": [
-      {
-          "src": "favicon.ico",
-          "sizes": "64x64 32x32 24x24 16x16",
-          "type": "image/x-icon"
-      }
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
   ],
   "start_url": ".",
   "display": "standalone",
