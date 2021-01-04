@@ -65,9 +65,9 @@ class InterfaceRepository {
     m.payable || m.stateMutability === "payable";
 
   async loadAbi(addressOrAbi: string): Promise<ContractInterface> {
-    const abiString = this.web3.utils.isAddress(addressOrAbi)
-      ? await this._loadAbiFromBlockExplorer(addressOrAbi)
-      : addressOrAbi;
+    // const abiString = this.web3.utils.isAddress(addressOrAbi)
+    //   ? await this._loadAbiFromBlockExplorer(addressOrAbi)
+    //   : addressOrAbi;
 
     const abi = moneyMarket;
 

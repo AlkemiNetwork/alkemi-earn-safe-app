@@ -290,10 +290,10 @@ const Dashboard = () => {
       <StyledText size="lg">
         Connected to: <span style={{color: 'red'}}>{currentNetwork}</span>
         <br />
-        Contract address to: <span style={{color: 'blue'}}>{toAddress}</span> {displayHashIcon()}
+        Contract address: <span style={{color: 'blue'}}>{toAddress}</span> {displayHashIcon()}
       </StyledText>
       {/* TXs MODAL */}
-      {reviewing && transactions.length > 0 && (
+      {reviewing && transactions.length > 0 && !loadAbiError && (
         <GenericModal
           body={<ModalBody txs={transactions} deleteTx={deleteTransaction} />}
           onClose={handleDismiss}
@@ -425,6 +425,11 @@ const Dashboard = () => {
 
           <br />
 
+          {loadAbiError && <span style={{color: 'red'}}>
+          <br />
+          Something went wrong, transactions disabled.  
+          </span>}
+
           {/* Actions */}
           <ButtonContainer>
             {isValueInputVisible() || contract.methods.length > 0 ? (
@@ -441,7 +446,7 @@ const Dashboard = () => {
 
             <Button
               size="md"
-              disabled={!transactions.length}
+              disabled={!transactions.length || loadAbiError}
               variant="contained"
               color="primary"
               onClick={() => setReviewing(true)}
