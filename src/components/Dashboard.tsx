@@ -8,7 +8,7 @@ import {
   ModalFooterConfirmation,
   ButtonLink
 } from "@gnosis.pm/safe-react-components";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Box from "@material-ui/core/Box";
 import styled from "styled-components";
 import { AbiItem } from "web3-utils";
@@ -18,6 +18,9 @@ import useServices from "../hooks/useServices";
 import { ProposedTransaction } from "../typings/models";
 import { useSafe } from "../hooks/useSafe";
 import WidgetWrapper from "./WidgetWrapper";
+
+import MoneyMarket_ABI from "constants/ABI/MoneyMarket_ABI.json";
+import address from "constants/address_map.json";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -82,7 +85,6 @@ const Dashboard = () => {
   const services = useServices();
   const safe = useSafe();
 
-  const [addressOrAbi, setAddressOrAbi] = useState("");
   const [loadAbiError, setLoadAbiError] = useState(false);
   const [showExamples, setShowExamples] = useState(false);
   const [toAddress, setToAddress] = useState("");
@@ -96,31 +98,34 @@ const Dashboard = () => {
   const [transactions, setTransactions] = useState<ProposedTransaction[]>([]);
   const [value, setValue] = useState("");
 
-  const handleAddressOrABI = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): Promise<ContractInterface | void> => {
-    setContract(undefined);
-    setLoadAbiError(false);
+  useEffect(() => {
+    const setABIAndAddress = async () : Promise<ContractInterface | void> => {
 
-    const cleanInput = e.currentTarget?.value?.trim();
-    setAddressOrAbi(cleanInput);
+      setContract(undefined);
+      setLoadAbiError(false);
+  
+      const cleanInput = MoneyMarket_ABI.toString();
+  
+      if (!cleanInput.length || !services.web3 || !services.interfaceRepo) {
+        return;
+      }
+      
+      try {
+        const contract = await services.interfaceRepo.loadAbi(cleanInput);
+        setContract(contract);
 
-    if (!cleanInput.length || !services.web3 || !services.interfaceRepo) {
-      return;
-    }
+        setToAddress("0x094Aa82872c43031810470317d4D8e3CA9214087")
+      } catch (e) {
+        setLoadAbiError(true);
+        console.error(e);
+      }
+      
+    };
 
-    if (toAddress.length === 0 && services.web3.utils.isAddress(cleanInput)) {
-      setToAddress(cleanInput);
-    }
+    setABIAndAddress()
+  }, [services.web3, services.interfaceRepo]);
 
-    try {
-      const contract = await services.interfaceRepo.loadAbi(cleanInput);
-      setContract(contract);
-    } catch (e) {
-      setLoadAbiError(true);
-      console.error(e);
-    }
-  };
+  // const contractAddress = address[network][`address_MoneyMarket`];
 
   const handleMethod = useCallback(
     async (methodIndex: number) => {
@@ -262,9 +267,9 @@ const Dashboard = () => {
 
   return (
     <WidgetWrapper>
-      <StyledTitle size="sm">Multisend transaction builder</StyledTitle>
+      <StyledTitle size="sm">Alkemi Earn Safe App</StyledTitle>
       <StyledText size="sm">
-        This app allows you to build a custom multisend transaction.
+        This app allows you to execute multisend transactions for Alkemi Earn.
         <br />
         Enter a Ethereum contract address or ABI to get started.
       </StyledText>
@@ -284,19 +289,6 @@ const Dashboard = () => {
         />
       )}
 
-      {/* ABI Input */}
-      <TextField
-        value={addressOrAbi}
-        label="Enter Contract Address or ABI"
-        onChange={handleAddressOrABI}
-        onLoad={handleAddressOrABI}
-      />
-      {loadAbiError && (
-        <Text color="error" size="lg">
-          There was a problem trying to load the ABI
-        </Text>
-      )}
-
       {/* ABI Loaded */}
       {contract && (
         <>
@@ -304,33 +296,6 @@ const Dashboard = () => {
 
           {!contract?.methods.length && (
             <Text size="lg">Contract ABI doesn't have any public methods.</Text>
-          )}
-
-          {/* Input To (destination) */}
-          {(isValueInputVisible() || contract.methods.length > 0) && (
-            <>
-              <TextField
-                style={{ marginTop: 10 }}
-                value={toAddress}
-                label="To Address"
-                onChange={e => setToAddress(e.target.value)}
-              />
-              <br />
-            </>
-          )}
-
-          {/* Input ETH value */}
-          {isValueInputVisible() && (
-            <>
-              <TextField
-                style={{ marginTop: 10, marginBottom: 10 }}
-                value={value}
-                label="ETH"
-                onChange={e => setValue(e.target.value)}
-              />
-
-              <br />
-            </>
           )}
 
           {
@@ -425,6 +390,21 @@ const Dashboard = () => {
               )}
             </>
           }
+
+          {/* Input ETH value */}
+          {isValueInputVisible() && (
+            <>
+              <TextField
+                style={{ marginTop: 10, marginBottom: 10 }}
+                value={value}
+                label="ETH"
+                onChange={e => setValue(e.target.value)}
+              />
+
+              <br />
+            </>
+          )}
+
           <br />
 
           {/* Actions */}

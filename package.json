@@ -14,13 +14,12 @@
     "graphql": "^14.6.0",
     "lodash": "^4.17.15",
     "react": "^17.0.1",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "4.0.1",
     "styled-components": "^5.2.0",
     "web3": "^1.2.5",
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0",
-    "react-perfect-scrollbar": "^1.5.8",
-    "react-scripts": "4.0.1"
+    "react-perfect-scrollbar": "^1.5.8"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
