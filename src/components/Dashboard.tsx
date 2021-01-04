@@ -22,6 +22,8 @@ import WidgetWrapper from "./WidgetWrapper";
 import MoneyMarket_ABI from "constants/ABI/MoneyMarket_ABI.json";
 import address from "constants/address_map.json";
 
+import { Hashicon } from '@emeraldpay/hashicon-react';
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -274,6 +276,11 @@ const Dashboard = () => {
     }
   };
 
+  const displayHashIcon = () => {
+    // icon is a <canvas> element
+    return <Hashicon value={toAddress} size={40} />
+  }
+
   return (
     <WidgetWrapper>
       <StyledTitle size="sm">Alkemi Earn Safe App</StyledTitle>
@@ -283,7 +290,7 @@ const Dashboard = () => {
       <StyledText size="lg">
         Connected to: <span style={{color: 'red'}}>{currentNetwork}</span>
         <br />
-        Contract address to: <span style={{color: 'blue'}}>{toAddress}</span>
+        Contract address to: <span style={{color: 'blue'}}>{toAddress}</span> {displayHashIcon()}
       </StyledText>
       {/* TXs MODAL */}
       {reviewing && transactions.length > 0 && (
