@@ -97,6 +97,8 @@ const Dashboard = () => {
   const [addTxError, setAddTxError] = useState<string | undefined>();
   const [transactions, setTransactions] = useState<ProposedTransaction[]>([]);
   const [value, setValue] = useState("");
+  
+  const [currentNetwork, setCurrentNetwork] = useState("");
 
   useEffect(() => {
     const setABIAndAddress = async () : Promise<ContractInterface | void> => {
@@ -120,6 +122,8 @@ const Dashboard = () => {
         }
 
         setToAddress(moneyMarketAddress)
+
+        setCurrentNetwork(safe.info.network)
       } catch (e) {
         setLoadAbiError(true);
         console.error(e);
@@ -274,11 +278,13 @@ const Dashboard = () => {
     <WidgetWrapper>
       <StyledTitle size="sm">Alkemi Earn Safe App</StyledTitle>
       <StyledText size="sm">
-        This app allows you to execute multisend transactions for Alkemi Earn.
-        <br />
-        Enter a Ethereum contract address or ABI to get started.
+        This app allows you to execute multisend transactions for Alkemi Earn.        
       </StyledText>
-
+      <StyledText size="lg">
+        Connected to: <span style={{color: 'red'}}>{currentNetwork}</span>
+        <br />
+        Contract address to: <span style={{color: 'blue'}}>{toAddress}</span>
+      </StyledText>
       {/* TXs MODAL */}
       {reviewing && transactions.length > 0 && (
         <GenericModal
