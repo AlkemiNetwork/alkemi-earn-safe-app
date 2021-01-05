@@ -1,45 +1,27 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { ThemeProvider } from "styled-components";
+import { theme } from "@gnosis.pm/safe-react-components";
 
+import * as serviceWorker from "./serviceWorker";
 
-// theme
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-
-import "react-perfect-scrollbar/dist/css/styles.css";
-import "assets/scss/style.scss";
-import theme from "themes/theme";
-
-// SafeProvider
-import SafeProvider from '@gnosis.pm/safe-apps-react-sdk';
-
-// hot reload
-import { hot } from "react-hot-loader/root";
-
-import SafeApp from './SafeApp';
-
-export class App extends Component {
-  render() {
-      return (
-        <MuiThemeProvider theme={theme}>
-            <CssBaseline />
-            <SafeProvider
-              loader={
-                <>
-                  Waiting for Safe...
-                </>
-              }
-            >
-              <SafeApp />
-            </SafeProvider>
-        </MuiThemeProvider>
-      );
-  }
-}
-
-const AppWithHotReload = hot(App);
+import Dashboard from "./components/Dashboard";
+import SafeProvider from "./providers/SafeProvider";
+import GlobalStyles from "./global";
 
 ReactDOM.render(
-  <AppWithHotReload />,
-  document.getElementById("root") || document.createElement("div")
+  <>
+    <GlobalStyles />
+    <ThemeProvider theme={theme}>
+      <SafeProvider>
+        <Dashboard />
+      </SafeProvider>
+    </ThemeProvider>
+  </>,
+  document.getElementById("root")
 );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
