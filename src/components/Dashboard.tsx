@@ -13,7 +13,7 @@ import Box from "@material-ui/core/Box";
 import styled from "styled-components";
 import { AbiItem } from "web3-utils";
 
-import { ContractInterface } from "../hooks/useServices/interfaceRepository";
+import { ContractInterface, ContractMethod } from "../hooks/useServices/interfaceRepository";
 import useServices from "../hooks/useServices";
 import { ProposedTransaction } from "../typings/models";
 import { useSafe } from "../hooks/useSafe";
@@ -23,6 +23,10 @@ import MoneyMarket_ABI from "constants/ABI/MoneyMarket_ABI.json";
 import address from "constants/address_map.json";
 
 import { Hashicon } from '@emeraldpay/hashicon-react';
+
+import whitelistedMethods from "constants/methods_by_user.json";
+
+const TARGET_USER: string = process.env.REACT_APP_TARGET_USER ? process.env.REACT_APP_TARGET_USER : "customer";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -101,6 +105,7 @@ const Dashboard = () => {
   const [value, setValue] = useState("");
   
   const [currentNetwork, setCurrentNetwork] = useState("");
+  const [targetUserMethods, setTargetUserMethods] = useState<ContractMethod[]>([]);
 
   useEffect(() => {
     const setABIAndAddress = async () : Promise<ContractInterface | void> => {
@@ -136,7 +141,18 @@ const Dashboard = () => {
     setABIAndAddress()
   }, [services.web3, services.interfaceRepo, safe.info]);
 
-  // const contractAddress = address[network][`address_MoneyMarket`];
+  useEffect(() => {
+    let arrayOfMethods = whitelistedMethods["admin"]
+    if(TARGET_USER === "customer") {
+      arrayOfMethods = whitelistedMethods["customer"]
+    }
+
+    const targetMethods = contract && contract.methods.length > 0 ? contract.methods.filter((method) => {
+      return arrayOfMethods.includes(method.name)
+    }) : []
+
+    setTargetUserMethods(targetMethods)
+  }, [contract]);
 
   const handleMethod = useCallback(
     async (methodIndex: number) => {
@@ -322,10 +338,13 @@ const Dashboard = () => {
                 <>
                   <br />
                   <StyledSelect
-                    items={contract.methods.map((method, index) => ({
-                      id: index.toString(),
-                      label: method.name
-                    }))}
+                    items={targetUserMethods.map(
+                      (method, index) => {
+                        return {
+                          id: index.toString(),
+                          label: method.name
+                        }}
+                    )}
                     activeItemId={selectedMethodIndex.toString()}
                     onItemClick={(id: string) => {
                       setAddTxError(undefined);

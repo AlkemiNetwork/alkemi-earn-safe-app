@@ -1,0 +1,4 @@
+{
+    "customer": ["borrow", "liquidateBorrow"],
+    "admin": ["addKYCAdmin", "removeKYCAdmin"]
+}
