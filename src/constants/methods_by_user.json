@@ -1,4 +1,23 @@
 {
-    "customer": ["borrow", "liquidateBorrow"],
-    "admin": ["addKYCAdmin", "removeKYCAdmin"]
+    "customer": ["borrow", "liquidateBorrow", "supply", "withdraw", "repayBorrow"],
+    "admin": [
+        "addKYCAdmin", 
+        "removeKYCAdmin", 
+        "addCustomerKYC", 
+        "removeCustomerKYC", 
+        "addLiquidator", 
+        "removeLiquidator", 
+        "_setPendingAdmin",
+        "_acceptAdmin",
+        "_setOracle",
+        "_setPaused",
+        "_supportMarket",
+        "_suspendMarket",
+        "_setRiskParameters",
+        "_setOriginationFee",
+        "_setMarketInterestRateModel",
+        "_withdrawEquity",
+        "setWethAddress",
+        "sendEtherToUser"
+    ]
 }
