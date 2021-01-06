@@ -26,7 +26,7 @@ import { Hashicon } from '@emeraldpay/hashicon-react';
 
 import whitelistedMethods from "constants/methods_by_user.json";
 
-const TARGET_USER: string = process.env.REACT_APP_TARGET_USER ? process.env.REACT_APP_TARGET_USER : "customer";
+const TARGET_USER: string = process.env.REACT_APP_TARGET_USER ? process.env.REACT_APP_TARGET_USER : "admin";
 
 const ButtonContainer = styled.div`
   display: flex;
