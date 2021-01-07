@@ -170,7 +170,7 @@ const Dashboard = () => {
     [inputCache]
   );
 
-  const getContractMethod = () => contract?.methods[selectedMethodIndex];
+  const getContractMethod = () => targetUserMethods[selectedMethodIndex];
 
   const isValueInputVisible = () => {
     const method = getContractMethod();
@@ -328,13 +328,13 @@ const Dashboard = () => {
         <>
           <Title size="xs">Transaction information</Title>
 
-          {!contract?.methods.length && (
-            <Text size="lg">Contract ABI doesn't have any public methods.</Text>
+          {!targetUserMethods.length && (
+            <Text size="lg">No methods available.</Text>
           )}
 
           {
             <>
-              {contract.methods.length > 0 && (
+              {targetUserMethods.length > 0 && (
                 <>
                   <br />
                   <StyledSelect
