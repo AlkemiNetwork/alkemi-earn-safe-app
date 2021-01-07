@@ -5,7 +5,7 @@ import { LowercaseNetworks } from "@gnosis.pm/safe-apps-sdk";
 import moneyMarket from "../../abi/moneymarket.json";
 
 import { Safe } from "../../providers/SafeProvider/safeConnector";
-interface ContractMethod {
+export interface ContractMethod {
   inputs: any[];
   name: string;
   payable: boolean;
