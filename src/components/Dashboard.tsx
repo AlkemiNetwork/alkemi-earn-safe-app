@@ -187,8 +187,8 @@ const Dashboard = () => {
       return;
     }
 
-    if (contract && contract.methods.length > selectedMethodIndex) {
-      const method = contract.methods[selectedMethodIndex];
+    if (targetUserMethods.length > selectedMethodIndex) {
+      const method = targetUserMethods[selectedMethodIndex];
       const cleanInputs = [];
 
       description = method.name + " (";
