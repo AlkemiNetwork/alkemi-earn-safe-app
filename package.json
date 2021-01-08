@@ -1,8 +1,12 @@
 {
   "name": "alkemi-earn-safe-app",
   "version": "0.1.0",
+  "homepage": "https://safe.alkemi.network",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:project-alkemi/alkemi-earn-safe-app.git"
+  },
   "private": true,
-  "homepage": "./",
   "dependencies": {
     "@emeraldpay/hashicon-react": "^0.5.1",
     "@gnosis.pm/safe-apps-react-sdk": "1.0.0-beta.1",
@@ -23,6 +27,16 @@
     "web3": "^1.2.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^11.0.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.3.0",
+    "prettier": "^2.0.5",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/npm": "^7.0.6",
+    "@semantic-release/release-notes-generator": "^9.0.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.1.3",
@@ -36,15 +50,42 @@
     "@types/styled-components": "^5.1.2",
     "react-app-rewired": "^2.1.6",
     "react-docgen-typescript-loader": "^3.7.1",
+    "semantic-release": "^17.2.2",
     "typescript": "^4.1.3"
   },
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test --passWithNoTests"
+    "test": "react-app-rewired test --passWithNoTests",
+    "prettier": "prettier --write './**/*'"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": [
+            "src"
+          ]
+        }
+      }
+    }
+  },
+  "prettier": {
+    "useTabs": false,
+    "tabWidth": 4
   },
   "browserslist": {
     "production": [
@@ -56,6 +97,28 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "release": {
+    "branches": [
+      "development"
+    ],
+    "repositoryUrl": "git@bitbucket.org:project-alkemi/alkemi-earn-safe-app.git",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "CHANGELOG.md"
+          ],
+          "message": "chore(release): ${nextRelease.version} [skip ci] \n\n${nextRelease.notes}"
+        }
+      ]
     ]
   }
 }

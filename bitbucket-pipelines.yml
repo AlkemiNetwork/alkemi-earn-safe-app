@@ -104,6 +104,22 @@ definitions:
               AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
               DISTRIBUTION_ID: $AWS_CLOUDFRONT_ID
 
+    # DEFINE RELEASE and bump VERSION
+    - step: &release
+        name: "Release and bump version"
+        caches:
+          - node
+        script:
+          # Install quietly
+          - yarn install --quiet
+          # Run Test
+          - yarn test
+          # Do Release w/ debug on
+          - npx semantic-release --debug
+        artifacts: # defining the artifacts to be passed to each future step.
+          - CHANGELOG.md
+          - package.json
+
 # Workflow Configuration
 
 pipelines:
@@ -113,6 +129,13 @@ pipelines:
         - step: *lint
 
   branches:
+    development:
+      # Runs only on Development Branch
+      - parallel:
+          - step: *build
+          - step: *security
+          - step: *analyze
+      - step: *release
     master:
       - parallel:
           - step: *build
