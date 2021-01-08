@@ -1,144 +1,144 @@
 clone:
-  depth: full # SonarCloud scanner needs the full history to assign issues properly
+    depth: full # SonarCloud scanner needs the full history to assign issues properly
 
-image: node:10.15.3
+image: node:10
 
 definitions:
-  # CACHES
-  caches:
-    sonar: ~/.sonar/cache # Caching SonarCloud artifacts will speed up your build
-    nodecustom: ./node_modules # YARN doesn't work with Node cache for some reason
-    yarn: /usr/local/share/.cache/yarn # Don't ask LOL...
+    # CACHES
+    caches:
+        sonar: ~/.sonar/cache # Caching SonarCloud artifacts will speed up your build
+        nodecustom: ./node_modules # YARN doesn't work with Node cache for some reason
+        yarn: /usr/local/share/.cache/yarn # Don't ask LOL...
 
-  # SERVICES
-  services:
-    docker:
-      memory: 2048 # Increasing Docker Memory Size to 2GB instead of defailt 1GB
+    # SERVICES
+    services:
+        docker:
+            memory: 2048 # Increasing Docker Memory Size to 2GB instead of defailt 1GB
 
-  # STEPS
-  steps:
-    - step: &test
-        name: Test
-        caches:
-          - nodecustom
-          - yarn
-        script:
-          - yarn install
-          # CI=true in default variables for Bitbucket Pipelines https://support.atlassian.com/bitbucket-cloud/docs/variables-in-pipelines/
-          - yarn test
+    # STEPS
+    steps:
+        - step: &test
+              name: Test
+              caches:
+                  - nodecustom
+                  - yarn
+              script:
+                  - yarn install
+                  # CI=true in default variables for Bitbucket Pipelines https://support.atlassian.com/bitbucket-cloud/docs/variables-in-pipelines/
+                  - yarn test
 
-    # DEFINE LINT STEP
-    - step: &lint
-        name: Lint the node package
-        script:
-          # Run your linter of choice here
-          # - yarn add eslint
-          - npx eslint src
-        caches:
-          - nodecustom
-          - yarn
+        # DEFINE LINT STEP
+        - step: &lint
+              name: Lint the node package
+              script:
+                  # Run your linter of choice here
+                  # - yarn add eslint
+                  - npx eslint src
+              caches:
+                  - nodecustom
+                  - yarn
 
-    # DEFINE BUILD STEP
-    - step: &build
-        name: Build and Test
-        caches:
-          - nodecustom
-          - yarn
-        script:
-          - yarn install
-          # CI=true in default variables for Bitbucket Pipelines https://support.atlassian.com/bitbucket-cloud/docs/variables-in-pipelines/
-          - yarn test
-          - yarn run build
-        artifacts:
-          - build/**
+        # DEFINE BUILD STEP
+        - step: &build
+              name: Build and Test
+              caches:
+                  - nodecustom
+                  - yarn
+              script:
+                  - yarn install
+                  # CI=true in default variables for Bitbucket Pipelines https://support.atlassian.com/bitbucket-cloud/docs/variables-in-pipelines/
+                  - yarn test
+                  - yarn run build
+              artifacts:
+                  - build/**
 
-    # DEFINE Security STEP
-    - step: &security
-        name: Security Scan
-        script:
-          # Run a security scan for sensitive data.
-          # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
-          - pipe: atlassian/git-secrets-scan:0.4.3
+        # DEFINE Security STEP
+        - step: &security
+              name: Security Scan
+              script:
+                  # Run a security scan for sensitive data.
+                  # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
+                  - pipe: atlassian/git-secrets-scan:0.4.3
 
-    # DEFINE CODE ANALYSIS
-    - step: &analyze
-        name: Code Analysis
-        caches:
-          - nodecustom
-          - yarn
-          - sonar
-        script:
-          # Increase Node Memory Size to 2GB instead of default 512MB
-          - export NODE_OPTIONS=--max_old_space_size=2048
-          - yarn install --quiet
-          - pipe: sonarsource/sonarcloud-scan:1.2.1
+        # DEFINE CODE ANALYSIS
+        - step: &analyze
+              name: Code Analysis
+              caches:
+                  - nodecustom
+                  - yarn
+                  - sonar
+              script:
+                  # Increase Node Memory Size to 2GB instead of default 512MB
+                  - export NODE_OPTIONS=--max_old_space_size=2048
+                  - yarn install --quiet
+                  - pipe: sonarsource/sonarcloud-scan:1.2.1
 
-    # DEFINE CODE QUALITY GATE
-    - step: &quality-gate
-        name: Code Quality Enforcement
-        script:
-          - pipe: sonarsource/sonarcloud-quality-gate:0.1.4
-          # If the quality requirements aren't passed as defined in Sonar, Build will Fail
+        # DEFINE CODE QUALITY GATE
+        - step: &quality-gate
+              name: Code Quality Enforcement
+              script:
+                  - pipe: sonarsource/sonarcloud-quality-gate:0.1.4
+                  # If the quality requirements aren't passed as defined in Sonar, Build will Fail
 
-    # DEFINE DEPLOY STEP
-    - step: &deploy
-        name: Deploy to Production
-        deployment: Production
-        trigger: manual
-        clone:
-          enabled: false
-        script:
-          # sync your files to S3
-          - pipe: atlassian/aws-s3-deploy:0.4.4
-            variables:
-              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-              S3_BUCKET: $AWS_S3_BUCKET
-              LOCAL_PATH: "build"
-          # triggering a distribution invalidation to refresh the CDN caches
-          - pipe: atlassian/aws-cloudfront-invalidate:0.1.1
-            variables:
-              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-              DISTRIBUTION_ID: $AWS_CLOUDFRONT_ID
+        # DEFINE DEPLOY STEP
+        - step: &deploy
+              name: Deploy to Production
+              deployment: Production
+              trigger: manual
+              clone:
+                  enabled: false
+              script:
+                  # sync your files to S3
+                  - pipe: atlassian/aws-s3-deploy:0.4.4
+                    variables:
+                        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                        AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                        S3_BUCKET: $AWS_S3_BUCKET
+                        LOCAL_PATH: "build"
+                  # triggering a distribution invalidation to refresh the CDN caches
+                  - pipe: atlassian/aws-cloudfront-invalidate:0.1.1
+                    variables:
+                        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                        AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                        DISTRIBUTION_ID: $AWS_CLOUDFRONT_ID
 
-    # DEFINE RELEASE and bump VERSION
-    - step: &release
-        name: "Release and bump version"
-        caches:
-          - node
-        script:
-          # Install quietly
-          - yarn install --quiet
-          # Run Test
-          - yarn test
-          # Do Release w/ debug on
-          - npx semantic-release --debug
-        artifacts: # defining the artifacts to be passed to each future step.
-          - CHANGELOG.md
-          - package.json
+        # DEFINE RELEASE and bump VERSION
+        - step: &release
+              name: "Release and bump version"
+              caches:
+                  - node
+              script:
+                  # Install quietly
+                  - yarn install --quiet
+                  # Run Test
+                  - yarn test
+                  # Do Release w/ debug on
+                  - npx semantic-release --debug
+              artifacts: # defining the artifacts to be passed to each future step.
+                  - CHANGELOG.md
+                  - package.json
 
 # Workflow Configuration
 
 pipelines:
-  default:
-    - parallel:
-        - step: *test
-        - step: *lint
+    default:
+        - parallel:
+              - step: *test
+              - step: *lint
 
-  branches:
-    development:
-      # Runs only on Development Branch
-      - parallel:
-          - step: *build
-          - step: *security
-          - step: *analyze
-      - step: *release
-    master:
-      - parallel:
-          - step: *build
-          - step: *security
-          - step: *analyze
-      - step: *deploy
+    branches:
+        development:
+            # Runs only on Development Branch
+            - parallel:
+                  - step: *build
+                  - step: *security
+                  - step: *analyze
+            - step: *release
+        master:
+            - parallel:
+                  - step: *build
+                  - step: *security
+                  - step: *analyze
+            - step: *deploy
