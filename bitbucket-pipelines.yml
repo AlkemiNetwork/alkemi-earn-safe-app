@@ -108,7 +108,9 @@ definitions:
         - step: &release
               name: "Release and bump version"
               caches:
-                  - node
+                  - nodecustom
+                  - yarn
+                  - sonar
               script:
                   # Install quietly
                   - yarn install --quiet
