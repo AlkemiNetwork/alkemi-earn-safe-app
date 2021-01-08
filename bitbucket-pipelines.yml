@@ -32,7 +32,7 @@ definitions:
         name: Lint the node package
         script:
           # Run your linter of choice here
-          - yarn install eslint
+          # - yarn add eslint
           - npx eslint src
         caches:
           - nodecustom
