@@ -1,3 +1,23 @@
+## [1.0.2](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/compare/v1.0.1...v1.0.2) (2021-01-10)
+
+
+### Bug Fixes
+
+* improve logo icon ([94f2886](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/commits/94f2886cd7dd55c4efa8ca10e7701ca826322a2c))
+
+## [1.0.1](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/compare/v1.0.0...v1.0.1) (2021-01-08)
+
+
+### Bug Fixes
+
+* allow origin header authorization ([bd2a980](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/commits/bd2a98088bc833705dcedd8042b2d6c138f1aaf0))
+* update mainnet contract address ([6d71864](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/commits/6d71864b57a4ba2dfe2584377a899b8c58d11626))
+
+
+### Reverts
+
+* config-overides custom webpack headers config ([49abe2b](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/commits/49abe2bc57ea733596d48bb30b46e7a7b8ee6f1f))
+
 # 1.0.0 (2021-01-08)
 
 
