@@ -1,3 +1,10 @@
+## [1.0.2](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/compare/v1.0.1...v1.0.2) (2021-01-10)
+
+
+### Bug Fixes
+
+* improve logo icon ([94f2886](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/commits/94f2886cd7dd55c4efa8ca10e7701ca826322a2c))
+
 ## [1.0.1](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/compare/v1.0.0...v1.0.1) (2021-01-08)
 
 
