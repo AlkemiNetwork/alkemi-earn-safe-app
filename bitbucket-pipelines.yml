@@ -17,6 +17,13 @@ definitions:
 
     # STEPS
     steps:
+        # DEFINE Mirror to Github STEP
+        - step: &github
+              name: "Mirror to Github"
+              script:
+                  - git push --mirror git@github.com:project-alkemi/alkemi-earn-safe-app.git
+
+        # DEFINE TEST STEP
         - step: &test
               name: Test
               caches:
@@ -143,4 +150,5 @@ pipelines:
                   - step: *build
                   - step: *security
                   - step: *analyze
+                  - step: *github
             - step: *deploy
