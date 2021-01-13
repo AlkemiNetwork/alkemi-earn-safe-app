@@ -21,6 +21,8 @@ definitions:
         - step: &github
               name: "Mirror to Github"
               script:
+                  - git config --global user.name "Alkemi Build CI"
+                  - git config --global user.email build-ci@alkemi.ai
                   - git push --mirror git@github.com:project-alkemi/alkemi-earn-safe-app.git
 
         # DEFINE TEST STEP
@@ -124,7 +126,7 @@ definitions:
                   # Run Test
                   - yarn test
                   # Do Release w/ debug on
-                  - npx semantic-release --debug
+                  - npx semantic-release
               artifacts: # defining the artifacts to be passed to each future step.
                   - CHANGELOG.md
                   - package.json
