@@ -7,7 +7,7 @@
         "address_DAI": "0x6b175474e89094c44da98b954eedeac495271d0f"
     },
     "rinkeby": {
-        "address_MoneyMarket": "0x094Aa82872c43031810470317d4D8e3CA9214087",
+        "address_MoneyMarket": "0x9296F7df6A25053A9816db9166a4A8bbc34287B3",
         "address_USDC": "0x4dbcdf9b62e891a7cec5a2568c3f4faf9e8abe2b",
         "address_WBTC": "0x577d296678535e4903d59a4c929b718e1d575e0a",
         "address_WETH": "0x9e3865F0A681F2356BcF5Cf6b978F0a773716886",
