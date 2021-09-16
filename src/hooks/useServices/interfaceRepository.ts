@@ -2,7 +2,7 @@ import axios from "axios";
 import memoize from "lodash/memoize";
 import { LowercaseNetworks } from "@gnosis.pm/safe-apps-sdk";
 
-import moneyMarket from "../../abi/moneymarket.json";
+import moneyMarket from "constants/ABI/AlkemiEarnVerified_ABI.json";
 
 import { Safe } from "../../providers/SafeProvider/safeConnector";
 export interface ContractMethod {

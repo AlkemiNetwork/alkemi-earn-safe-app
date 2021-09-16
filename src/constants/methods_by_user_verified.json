@@ -1,0 +1,21 @@
+{
+    "customer": [
+        "borrow",
+        "liquidateBorrow",
+        "supply",
+        "withdraw",
+        "repayBorrow"
+    ],
+    "admin": [
+        "_changeKYCAdmin",
+        "_changeCustomerKYC",
+        "_changeLiquidator",
+        "_acceptAdmin",
+        "_supportMarket",
+        "_suspendMarket",
+        "_setRiskParameters",
+        "_setMarketInterestRateModel",
+        "_withdrawEquity",
+        "_adminFunctions"
+    ]
+}

@@ -22,12 +22,16 @@ import { ProposedTransaction } from "../typings/models";
 import { useSafe } from "../hooks/useSafe";
 import WidgetWrapper from "./WidgetWrapper";
 
-import MoneyMarket_ABI from "constants/ABI/MoneyMarket_ABI.json";
+import MoneyMarket_ABI from "constants/ABI/AlkemiEarnVerified_ABI.json";
+
+// import AlkemiEarnVerified_ABI from "constants/ABI/AlkemiEarnVerified_ABI.json";
+// import AlkemiEarnPublic_ABI from "constants/ABI/AlkemiEarnPublic_ABI.json";
+
 import address from "constants/address_map.json";
 
 import { Hashicon } from "@emeraldpay/hashicon-react";
 
-import whitelistedMethods from "constants/methods_by_user.json";
+import whitelistedMethodsVerified from "constants/methods_by_user_verified.json";
 
 const TARGET_USER: string = process.env.REACT_APP_TARGET_USER
     ? process.env.REACT_APP_TARGET_USER
@@ -155,9 +159,9 @@ const Dashboard = () => {
     }, [services.web3, services.interfaceRepo, safe.info]);
 
     useEffect(() => {
-        let arrayOfMethods = whitelistedMethods["admin"];
+        let arrayOfMethods = whitelistedMethodsVerified["admin"];
         if (TARGET_USER === "customer") {
-            arrayOfMethods = whitelistedMethods["customer"];
+            arrayOfMethods = whitelistedMethodsVerified["customer"];
         }
 
         const targetMethods =
@@ -227,8 +231,8 @@ const Dashboard = () => {
                     method as AbiItem,
                     cleanInputs
                 );
-            } catch (error) {
-                setAddTxError(error.message);
+            } catch (error) { // TODO: catch error and uncomment message logging
+                // setAddTxError(error.message);
                 return;
             }
         }
