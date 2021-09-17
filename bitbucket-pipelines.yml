@@ -1,7 +1,7 @@
 clone:
     depth: full # SonarCloud scanner needs the full history to assign issues properly
 
-image: node:10
+image: node:12
 
 definitions:
     # CACHES
