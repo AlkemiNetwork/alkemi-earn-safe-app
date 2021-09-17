@@ -1,3 +1,18 @@
+# [1.1.0](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/compare/v1.0.2...v1.1.0) (2021-09-17)
+
+
+### Bug Fixes
+
+* adapt safe to latest changes UI-496 ([c5fed37](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/commits/c5fed374c07eb46a02da866ed8f1b299edb59fd9))
+* just increasing node version UI-496 ([4c8394a](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/commits/4c8394aa6770c477a43a23293deda18fc237a28a))
+* remove errors of pipeline UI-496 ([4ce5563](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/commits/4ce5563a2ea1a1711aa1c67cddc2e04e4d7eaece))
+
+
+### Features
+
+* add support for open pool UI-496 ([d490328](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/commits/d4903284f47d45138d1c4c8f7b1edbfc9215d747))
+* adding new abi EARN-18 ([2042ef1](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/commits/2042ef1d8d98ea2b8c0f0ad253badc5599d75de6))
+
 ## [1.0.2](https://bitbucket.org/project-alkemi/alkemi-earn-safe-app/compare/v1.0.1...v1.0.2) (2021-01-10)
 
 
