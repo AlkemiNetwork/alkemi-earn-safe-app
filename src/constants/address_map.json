@@ -1,13 +1,15 @@
 {
     "main": {
         "address_MoneyMarket": "0x397c315d64D74d82A731d656f9C4D586D200F90A",
+        "address_open_MoneyMarket": "0x4822D9172e5b76b9Db37B75f5552F9988F98a888",
         "address_USDC": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
         "address_WBTC": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
         "address_WETH": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
         "address_DAI": "0x6b175474e89094c44da98b954eedeac495271d0f"
     },
     "rinkeby": {
-        "address_MoneyMarket": "0x9296F7df6A25053A9816db9166a4A8bbc34287B3",
+        "address_MoneyMarket": "0x56eC31973f89E66D1f0e5DC7667A05Dd6a29D4E5",
+        "address_open_MoneyMarket": "0xE6A282CB974e8F86bf67198d65e9C1Da2D23b40d",
         "address_USDC": "0x4dbcdf9b62e891a7cec5a2568c3f4faf9e8abe2b",
         "address_WBTC": "0x577d296678535e4903d59a4c929b718e1d575e0a",
         "address_WETH": "0x9e3865F0A681F2356BcF5Cf6b978F0a773716886",
