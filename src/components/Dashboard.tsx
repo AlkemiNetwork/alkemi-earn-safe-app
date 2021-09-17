@@ -253,8 +253,8 @@ const Dashboard = () => {
                     method as AbiItem,
                     cleanInputs
                 );
-            } catch (error) { // TODO: catch error and uncomment message logging
-                // setAddTxError(error.message);
+            } catch (error: any) {
+                setAddTxError(error ? error.message : "Something went wrong");
                 return;
             }
         }
