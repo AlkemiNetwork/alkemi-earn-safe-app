@@ -351,20 +351,20 @@ const Dashboard = () => {
             </StyledText>
             <StyledText size="lg">
                 Connected to:{" "}
-                <span style={{ color: "red" }}>{currentNetwork}</span>
+                <span style={{ fontWeight: "bold", color: ["main", "mainnet"].includes(currentNetwork) ? "OrangeRed" : "IndianRed" }}>{currentNetwork}</span>
                 <br />
                 Contract address:{" "}
-                <span style={{ color: "blue" }}>{toAddress}</span>{" "}
+                <span style={{ fontWeight: "bold", color: "DarkMagenta" }}>{toAddress}</span>{" "}
                 {displayHashIcon()}
             </StyledText>
 
             <StyledText size="lg">
-                You are using <span style={{ color: currentPool === "open" ? "green" : "orange" }}>{currentPool}</span> pool. {" "}
+                You are using the <span style={{ fontWeight: "bold", color: currentPool === "open" ? "green" : "RoyalBlue" }}>{currentPool}</span> pool. {" "}
                 <Button
                     size="md"
                     variant="contained"
                     color="secondary" onClick={() => {handleChangePool(currentPool)}}>
-                        Change to {currentPool === "open" ? "verified" : "open"} pool</Button>
+                        Switch to {currentPool === "open" ? "verified" : "open"} pool</Button>
             </StyledText>
             {/* TXs MODAL */}
             {reviewing && transactions.length > 0 && !loadAbiError && (
