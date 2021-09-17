@@ -194,7 +194,7 @@ const Dashboard = () => {
                 : [];
 
         setTargetUserMethods(targetMethods);
-    }, [contract]);
+    }, [contract, currentPool]);
 
     const handleMethod = useCallback(
         async (methodIndex: number) => {
