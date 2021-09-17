@@ -2,7 +2,8 @@ import axios from "axios";
 import memoize from "lodash/memoize";
 import { LowercaseNetworks } from "@gnosis.pm/safe-apps-sdk";
 
-import moneyMarket from "constants/ABI/AlkemiEarnVerified_ABI.json";
+import AlkemiEarnVerified_ABI from "constants/ABI/AlkemiEarnVerified_ABI.json";
+import AlkemiEarnPublic_ABI from "constants/ABI/AlkemiEarnPublic_ABI.json";
 
 import { Safe } from "../../providers/SafeProvider/safeConnector";
 export interface ContractMethod {
@@ -64,12 +65,8 @@ class InterfaceRepository {
   private _isMethodPayable = (m: any) =>
     m.payable || m.stateMutability === "payable";
 
-  async loadAbi(addressOrAbi: string): Promise<ContractInterface> {
-    // const abiString = this.web3.utils.isAddress(addressOrAbi)
-    //   ? await this._loadAbiFromBlockExplorer(addressOrAbi)
-    //   : addressOrAbi;
-
-    const abi = moneyMarket;
+  async loadAbi(currentPool: string): Promise<ContractInterface> {  
+    let abi = currentPool === "open" ? AlkemiEarnPublic_ABI : AlkemiEarnVerified_ABI;
 
     const methods = abi
       .filter((e: any) => {

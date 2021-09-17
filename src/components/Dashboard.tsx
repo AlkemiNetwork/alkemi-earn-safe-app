@@ -22,16 +22,15 @@ import { ProposedTransaction } from "../typings/models";
 import { useSafe } from "../hooks/useSafe";
 import WidgetWrapper from "./WidgetWrapper";
 
-import MoneyMarket_ABI from "constants/ABI/AlkemiEarnVerified_ABI.json";
-
-// import AlkemiEarnVerified_ABI from "constants/ABI/AlkemiEarnVerified_ABI.json";
-// import AlkemiEarnPublic_ABI from "constants/ABI/AlkemiEarnPublic_ABI.json";
+import AlkemiEarnVerified_ABI from "constants/ABI/AlkemiEarnVerified_ABI.json";
+import AlkemiEarnPublic_ABI from "constants/ABI/AlkemiEarnPublic_ABI.json";
 
 import address from "constants/address_map.json";
 
 import { Hashicon } from "@emeraldpay/hashicon-react";
 
 import whitelistedMethodsVerified from "constants/methods_by_user_verified.json";
+import whitelistedMethodsOpen from "constants/methods_by_user_open.json";
 
 const TARGET_USER: string = process.env.REACT_APP_TARGET_USER
     ? process.env.REACT_APP_TARGET_USER
@@ -118,50 +117,73 @@ const Dashboard = () => {
         ContractMethod[]
     >([]);
 
+    const [currentPool, setCurrentPool] = useState("");
+
     useEffect(() => {
-        const setABIAndAddress = async (): Promise<ContractInterface | void> => {
-            setContract(undefined);
-            setLoadAbiError(false);
+        const storedPool = localStorage.getItem('currentPool');
 
-            const cleanInput = MoneyMarket_ABI.toString();
+        if(storedPool && storedPool === "open")
+            setCurrentPool("open")
+        else
+            setCurrentPool("verified")
+    }, []);
 
-            if (
-                !cleanInput.length ||
-                !services.web3 ||
-                !services.interfaceRepo ||
-                !safe.info
-            ) {
-                return;
-            }
+    const handleChangePool = (previousPool : string) => {
+        const newPool = previousPool === "open" ? "verified" : "open";
 
-            try {
-                const contract = await services.interfaceRepo.loadAbi(
-                    cleanInput
-                );
-                setContract(contract);
+        localStorage.setItem('currentPool', newPool);
 
-                let moneyMarketAddress = address["main"]["address_MoneyMarket"];
-                if (safe.info.network === "rinkeby") {
-                    moneyMarketAddress =
-                        address["rinkeby"]["address_MoneyMarket"];
+        window.location.reload();
+    }
+
+    useEffect(() => {
+        if(currentPool === "verified" || currentPool === "open") {
+            const setABIAndAddress = async (): Promise<ContractInterface | void> => {
+                setContract(undefined);
+                setLoadAbiError(false);
+
+                const cleanInput = currentPool === "open" ? AlkemiEarnPublic_ABI.toString() : AlkemiEarnVerified_ABI.toString();
+
+                if (
+                    !cleanInput.length ||
+                    !services.web3 ||
+                    !services.interfaceRepo ||
+                    !safe.info
+                ) {
+                    return;
                 }
 
-                setToAddress(moneyMarketAddress);
+                try {
+                    const contract = await services.interfaceRepo.loadAbi(
+                        currentPool
+                    );
+                    setContract(contract);
 
-                setCurrentNetwork(safe.info.network);
-            } catch (e) {
-                setLoadAbiError(true);
-                console.error(e);
-            }
-        };
+                    const moneyMarketContractName = currentPool === "open" ? "address_open_MoneyMarket" : "address_MoneyMarket"
 
-        setABIAndAddress();
-    }, [services.web3, services.interfaceRepo, safe.info]);
+                    let moneyMarketAddress = address["main"][moneyMarketContractName];
+                    if (safe.info.network === "rinkeby") {
+                        moneyMarketAddress =
+                            address["rinkeby"][moneyMarketContractName];
+                    }
+
+                    setToAddress(moneyMarketAddress);
+
+                    setCurrentNetwork(safe.info.network);
+                } catch (e) {
+                    setLoadAbiError(true);
+                    console.error(e);
+                }
+            };
+
+            setABIAndAddress();
+        }
+    }, [services.web3, services.interfaceRepo, safe.info, currentPool]);
 
     useEffect(() => {
-        let arrayOfMethods = whitelistedMethodsVerified["admin"];
+        let arrayOfMethods = currentPool === "open" ? whitelistedMethodsOpen['admin'] : whitelistedMethodsVerified["admin"];
         if (TARGET_USER === "customer") {
-            arrayOfMethods = whitelistedMethodsVerified["customer"];
+            arrayOfMethods = currentPool === "open" ? whitelistedMethodsOpen['customer'] : whitelistedMethodsVerified["customer"];
         }
 
         const targetMethods =
@@ -318,7 +340,7 @@ const Dashboard = () => {
     const displayHashIcon = () => {
         // icon is a <canvas> element
         return <Hashicon value={toAddress} size={40} />;
-    };
+    };  
 
     return (
         <WidgetWrapper>
@@ -334,6 +356,15 @@ const Dashboard = () => {
                 Contract address:{" "}
                 <span style={{ color: "blue" }}>{toAddress}</span>{" "}
                 {displayHashIcon()}
+            </StyledText>
+
+            <StyledText size="lg">
+                You are using <span style={{ color: currentPool === "open" ? "green" : "orange" }}>{currentPool}</span> pool. {" "}
+                <Button
+                    size="md"
+                    variant="contained"
+                    color="secondary" onClick={() => {handleChangePool(currentPool)}}>
+                        Change to {currentPool === "open" ? "verified" : "open"} pool</Button>
             </StyledText>
             {/* TXs MODAL */}
             {reviewing && transactions.length > 0 && !loadAbiError && (
